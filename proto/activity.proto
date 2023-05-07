@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+option go_package = "pikpo/proto";
+
+package Server;
+
+import "google/protobuf/timestamp.proto";
+
+message Activity {
+    int64 id = 1;
+    string days = 2;
+    string description = 3;
+    string created_at = 4;
+    string update_at = 5;
+}
+
+message AddActivityReq {
+    string days = 1;
+    string description = 2;
+    google.protobuf.Timestamp created_at = 3;
+}
+
+message AddActivityRes {
+    string message = 1;
+}
+
+message GetAllReq {
+
+}
+
+message GetAllResp {
+    repeated Activity activity = 1;
+}
+
+message GetActivityReq {
+    int64 id = 1;
+}
+
+message GetActivityResp {
+    Activity activity = 1;
+}
+
+message UpdateActivityReq {
+    int64 id = 1;
+    string days = 2;
+    string description = 3;
+    google.protobuf.Timestamp updated_at = 4;
+}
+
+message UpdateActivityResp {
+    string message = 1;
+}
+
+message DeleteReq {
+    int64 id = 1;
+}
+
+message DeleteResp {
+    string message = 1;
+}
+
+service ActivityService {
+    rpc AddActivity(AddActivityReq) returns (AddActivityRes);
+    rpc GetActivity(GetActivityReq) returns (GetActivityResp);
+    rpc GetAllActivity(GetAllReq) returns (GetAllResp);
+    rpc UpdateActivity(UpdateActivityReq) returns (UpdateActivityResp);
+    rpc DeleteActivity(DeleteReq) returns (DeleteResp);
+}
